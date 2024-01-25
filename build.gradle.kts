@@ -13,7 +13,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.assertj:assertj-core:3.25.2")
-    testImplementation("org.mockito:mockito-core:5.9.0")
+    testImplementation("org.mockito:mockito-core:5.10.0")
     testImplementation("com.approvaltests:approvaltests:22.3.3")
 }
 
