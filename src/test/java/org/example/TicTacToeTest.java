@@ -20,6 +20,17 @@ class TicTacToeTest {
             assertThrows(ArrayIndexOutOfBoundsException.class,
                     () -> ticTacToe.playIn(10));
         }
+
+        @Test
+        void should_insert_position() {
+            TicTacToe ticTacToe = new TicTacToe();
+            int positionToPlay = 2;
+
+            ticTacToe.playIn(positionToPlay);
+            String currentBoard = ticTacToe.getBoard();
+
+            assertEquals(generateBoard().replace("2", "X"), currentBoard);
+        }
     }
 
     @Nested
@@ -35,12 +46,12 @@ class TicTacToeTest {
                 expectedBoard, board
             );
         }
+    }
 
-        private String generateBoard() {
-            return "1 | 2 | 3\n" + "----------\n" +
-            "4 | 5 | 6\n" + "----------\n"+
-            "7 | 8 | 9";
-        }
+    private String generateBoard() {
+        return "1 | 2 | 3\n" + "----------\n" +
+                "4 | 5 | 6\n" + "----------\n"+
+                "7 | 8 | 9";
     }
 
 }
