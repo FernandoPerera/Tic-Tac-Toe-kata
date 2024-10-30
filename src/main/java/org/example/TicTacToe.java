@@ -6,6 +6,6 @@ public class TicTacToe implements GameBoard {
 
     @Override
     public void playIn(int position) {
-        throw new RuntimeException("Not implemented yet");
+        throw new ArrayIndexOutOfBoundsException("Last index is 9 !!");
     }
 }
