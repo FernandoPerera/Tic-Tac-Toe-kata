@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class TicTacToe implements GameBoard {
@@ -8,11 +9,14 @@ public class TicTacToe implements GameBoard {
     private static final String VERTICAL_BOARD_DIVISION = " | ";
 
     public TicTacToe(){}
-    private List<String> board = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9");
+    private List<String> board = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
 
     @Override
     public void playIn(int position) {
-        throw new ArrayIndexOutOfBoundsException("Last index is 9 !!");
+        if (position <= 0 || position > board.size()) {
+            throw new ArrayIndexOutOfBoundsException("Last index is 9 !!");
+        }
+        board.set(position - 1, "X");
     }
 
     @Override
