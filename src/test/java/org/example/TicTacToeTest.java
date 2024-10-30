@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Executable;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TicTacToeTest {
@@ -39,9 +37,9 @@ class TicTacToeTest {
         }
 
         private String generateBoard() {
-            return "1|2|3\n" + "------\n" +
-            "4|5|6\n" + "------\n"+
-            "7|8|9\n" + "------\n";
+            return "1 | 2 | 3\n" + "----------\n" +
+            "4 | 5 | 6\n" + "----------\n"+
+            "7 | 8 | 9";
         }
     }
 
