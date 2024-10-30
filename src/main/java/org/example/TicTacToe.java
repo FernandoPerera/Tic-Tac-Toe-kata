@@ -8,4 +8,9 @@ public class TicTacToe implements GameBoard {
     public void playIn(int position) {
         throw new ArrayIndexOutOfBoundsException("Last index is 9 !!");
     }
+
+    @Override
+    public String getBoard() {
+        throw new RuntimeException("Not implemented yet");
+    }
 }
