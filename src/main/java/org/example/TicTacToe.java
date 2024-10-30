@@ -13,7 +13,8 @@ public class TicTacToe implements GameBoard {
 
     @Override
     public void playIn(int position) {
-        if (position <= 0 || position > board.size()) {
+        boolean isInBoardLimits = position <= 0 || position > board.size();
+        if (isInBoardLimits) {
             throw new ArrayIndexOutOfBoundsException("Last index is 9 !!");
         }
         board.set(position - 1, "X");
