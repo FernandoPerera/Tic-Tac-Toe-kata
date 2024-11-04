@@ -14,20 +14,24 @@ class TicTacToeTest {
     // position 1 to 9
     // insert position
 
-    private TicTacToe ticTacToe;
-
-    @BeforeEach
-    void setUp() {
-        ticTacToe = new TicTacToe();
-    }
-
     @Nested
     class PlayInUseCases {
 
+        private TicTacToe ticTacToe;
+
+        @BeforeEach
+        void setUp() {
+            ticTacToe = new TicTacToe();
+        }
+
         @Test
         void should_only_insert_in_limits_of_the_board() {
-            assertThrows(ArrayIndexOutOfBoundsException.class,
-                    () -> ticTacToe.playIn(10));
+            ticTacToe.playIn(10);
+
+            assertEquals(
+                    Printer.display(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9")),
+                    ticTacToe.getBoard()
+            );
         }
 
         @Test
