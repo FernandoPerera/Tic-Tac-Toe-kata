@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Printer {
 
-    private static final String HORIZONTAL_BOARD_DIVISION = "----------";
-    private static final String VERTICAL_PLAYS_DIVISION = " | ";
+    private static final String HORIZONTAL_DIVISION = "----------";
+    private static final String VERTICAL_VALUES_DIVISION = " | ";
 
     public static String display(List<String> valuesToPrinting) {
         StringBuilder representation = new StringBuilder();
@@ -17,9 +17,9 @@ public class Printer {
             if (isLastRow){
                 representation.append(valuesToPrinting.get(i));
             }else if (mustPlaceHorizontalDivision) {
-                representation.append(valuesToPrinting.get(i)).append("\n" + HORIZONTAL_BOARD_DIVISION + "\n");
+                representation.append(valuesToPrinting.get(i)).append("\n" + HORIZONTAL_DIVISION + "\n");
             } else {
-                representation.append(valuesToPrinting.get(i)).append(VERTICAL_PLAYS_DIVISION);
+                representation.append(valuesToPrinting.get(i)).append(VERTICAL_VALUES_DIVISION);
             }
         }
         return representation.toString();
