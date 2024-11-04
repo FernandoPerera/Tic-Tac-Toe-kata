@@ -1,8 +1,11 @@
 package org.example;
 
 import org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,25 +14,32 @@ class TicTacToeTest {
     // position 1 to 9
     // insert position
 
+    private TicTacToe ticTacToe;
+
+    @BeforeEach
+    void setUp() {
+        ticTacToe = new TicTacToe();
+    }
+
     @Nested
     class PlayInUseCases {
+
         @Test
         void should_only_insert_in_limits_of_the_board() {
-            TicTacToe ticTacToe = new TicTacToe();
-
             assertThrows(ArrayIndexOutOfBoundsException.class,
                     () -> ticTacToe.playIn(10));
         }
 
         @Test
         void should_insert_position() {
-            TicTacToe ticTacToe = new TicTacToe();
             int positionToPlay = 2;
 
             ticTacToe.playIn(positionToPlay);
             String currentBoard = ticTacToe.getBoard();
 
-            assertEquals(generateBoard().replace("2", "X"), currentBoard);
+            assertEquals(
+                    Printer.display(Arrays.asList("1", "X", "3", "4", "5", "6", "7", "8", "9")),
+                    currentBoard);
         }
     }
 
@@ -39,19 +49,13 @@ class TicTacToeTest {
         @Test
         void should_get_current_board_status() {
             TicTacToe ticTacToe = new TicTacToe();
-            String expectedBoard = generateBoard();
             String board = ticTacToe.getBoard();
 
             assertEquals(
-                expectedBoard, board
+                    Printer.display(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9")),
+                    board
             );
         }
-    }
-
-    private String generateBoard() {
-        return "1 | 2 | 3\n" + "----------\n" +
-                "4 | 5 | 6\n" + "----------\n"+
-                "7 | 8 | 9";
     }
 
 }
