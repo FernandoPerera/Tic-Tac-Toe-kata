@@ -5,19 +5,19 @@ import java.util.List;
 
 public class TicTacToe implements GameBoard {
 
-    private static final List<String> BOARD = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+    private List<String> board = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
 
     @Override
     public void playIn(int position) {
-        boolean isInBoardLimits = position <= 0 || position > BOARD.size();
+        boolean isInBoardLimits = position <= 0 || position > board.size();
         if (isInBoardLimits) {
-            throw new ArrayIndexOutOfBoundsException("Last index is 9 !!");
+            return;
         }
-        BOARD.set(position - 1, "X");
+        board.set(position - 1, "X");
     }
 
     @Override
     public String getBoard() {
-        return Printer.display(BOARD);
+        return Printer.display(board);
     }
 }
