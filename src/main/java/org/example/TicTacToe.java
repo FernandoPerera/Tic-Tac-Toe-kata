@@ -2,17 +2,14 @@ package org.example;
 
 import java.util.Arrays;
 
-public class TicTacToe implements GameBoard {
+public class TicTacToe extends Game {
 
-    private final Board BOARD = new Board(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
-
-    @Override
-    public void playIn(int position) {
-        BOARD.occupyCell(position);
+    public TicTacToe() {
+        super(new Board(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9")));
     }
 
     @Override
-    public String getBoard() {
-        return Printer.display(BOARD.course());
+    protected void playIn(int position) {
+        super.BOARD.occupyCell(position);
     }
 }
