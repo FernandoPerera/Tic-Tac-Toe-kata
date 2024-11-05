@@ -17,13 +17,17 @@ public class Board {
             return;
         }
 
-        if (Arrays.stream(Piece.values()).anyMatch(
-                piece -> piece.name().equals(CELLS.get(position - 1))
-        )) {
+        if (cellIsOccupied(position)) {
             return;
         }
 
         CELLS.set(position - 1, pieceToPlay.name());
+    }
+
+    private boolean cellIsOccupied(int position) {
+        return Arrays.stream(Piece.values()).anyMatch(
+                piece -> piece.name().equals(CELLS.get(position - 1))
+        );
     }
 
     public List<String> getCells() {
