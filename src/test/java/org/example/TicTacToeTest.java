@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,22 +14,24 @@ class TicTacToeTest {
     // position 1 to 9
     // insert position
 
+    private TicTacToe ticTacToe;
+    private final List<String> CELLS = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+
+    @BeforeEach
+    void setUp() {
+        Board board = new Board(CELLS);
+        ticTacToe = new TicTacToe(board);
+    }
+
     @Nested
     class PlayInUseCases {
-
-        private TicTacToe ticTacToe;
-
-        @BeforeEach
-        void setUp() {
-            ticTacToe = new TicTacToe();
-        }
 
         @Test
         void should_only_insert_in_limits_of_the_board() {
             ticTacToe.playIn(10);
 
             assertEquals(
-                    Printer.display(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9")),
+                    Printer.display(CELLS),
                     ticTacToe.getBoard()
             );
         }
@@ -51,14 +54,12 @@ class TicTacToeTest {
 
         @Test
         void should_get_current_board_status() {
-            TicTacToe ticTacToe = new TicTacToe();
             String board = ticTacToe.getBoard();
 
             assertEquals(
-                    Printer.display(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9")),
+                    Printer.display(CELLS),
                     board
             );
         }
     }
-
 }
