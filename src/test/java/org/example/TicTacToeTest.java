@@ -13,14 +13,18 @@ class TicTacToeTest {
 
     // position 1 to 9
     // insert position
+    // do two piece inserts
 
     private TicTacToe ticTacToe;
     private List<String> cells;
 
+    private final String X_PIECE = "X";
+    private final String O_PIECE = "O";
+
     @BeforeEach
     void setUp() {
         cells = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
-        Board board = new Board(cells);
+        Board board = new Board(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
         ticTacToe = new TicTacToe(board);
     }
 
@@ -40,15 +44,32 @@ class TicTacToeTest {
         @Test
         void should_insert_position() {
             int positionToPlay = 2;
-            cells.set(positionToPlay - 1, "X");
 
             ticTacToe.playIn(positionToPlay);
             String currentBoard = ticTacToe.getBoard();
 
+            cells.set(positionToPlay - 1, X_PIECE);
             assertEquals(
                     Printer.display(cells),
                     currentBoard);
         }
+
+        @Test
+        void should_alternate_piece_each_turn() {
+            int firstPositionMove = 2;
+            int secondPositionMove = 5;
+            cells.set(firstPositionMove - 1, X_PIECE);
+            cells.set(secondPositionMove - 1, O_PIECE);
+
+            ticTacToe.playIn(firstPositionMove);
+            ticTacToe.playIn(secondPositionMove);
+
+            assertEquals(
+                    Printer.display(cells),
+                    ticTacToe.getBoard()
+            );
+        }
+
     }
 
     @Nested
