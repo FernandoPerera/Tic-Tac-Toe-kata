@@ -14,6 +14,7 @@ class TicTacToeTest {
     // position 1 to 9
     // insert position
     // do two piece inserts
+    // cannot play in occupy cell
 
     private TicTacToe ticTacToe;
     private List<String> cells;
@@ -60,6 +61,21 @@ class TicTacToeTest {
             int secondPositionMove = 5;
             cells.set(firstPositionMove - 1, X_PIECE);
             cells.set(secondPositionMove - 1, O_PIECE);
+
+            ticTacToe.playIn(firstPositionMove);
+            ticTacToe.playIn(secondPositionMove);
+
+            assertEquals(
+                    Printer.display(cells),
+                    ticTacToe.getBoard()
+            );
+        }
+
+        @Test
+        void should_not_play_in_cell_when_is_occupied() {
+            int firstPositionMove = 2;
+            int secondPositionMove = 2;
+            cells.set(firstPositionMove - 1, X_PIECE);
 
             ticTacToe.playIn(firstPositionMove);
             ticTacToe.playIn(secondPositionMove);
