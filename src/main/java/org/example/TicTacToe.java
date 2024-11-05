@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.List;
+import java.util.Optional;
+
 public class TicTacToe extends Game {
 
     private String lastMove = "";
@@ -13,14 +16,20 @@ public class TicTacToe extends Game {
     @Override
     protected void playIn(int position) {
         String piece;
+        Board board = super.BOARD;
 
         if (lastMove.equals(X_PIECE)) {
+
+            if (List.of(X_PIECE, O_PIECE).contains(board.getCells().get(position - 1))) {
+                return;
+            }
+
             piece = O_PIECE;
         } else {
             piece = X_PIECE;
         }
 
-        super.BOARD.occupyCell(position, piece);
+        board.occupyCell(position, piece);
         lastMove = piece;
     }
 }
