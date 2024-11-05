@@ -2,15 +2,15 @@ package org.example;
 
 public class Player {
 
-    private String username;
-    private Piece piece;
+    private final String USERNAME;
+    private final Piece PIECE;
 
     public Player(String username, Piece piece) {
-        this.username = username;
-        this.piece = piece;
+        this.USERNAME = username;
+        this.PIECE = piece;
     }
 
     public Piece getPiece() {
-        return piece;
+        return PIECE;
     }
 }
