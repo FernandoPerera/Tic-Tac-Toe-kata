@@ -1,35 +1,29 @@
 package org.example;
 
 import java.util.List;
-import java.util.Optional;
 
 public class TicTacToe extends Game {
 
-    private String lastMove = "";
-    private final String X_PIECE = "X";
-    private final String O_PIECE = "O";
+    private final List<Player> PLAYERS;
 
-    public TicTacToe(Board board) {
+    private Player nextPlayerToMove;
+
+    public TicTacToe(Board board, List<Player> PLAYERS) {
         super(board);
+        this.PLAYERS = PLAYERS;
+        this.nextPlayerToMove = PLAYERS.get(0);
     }
 
     @Override
     protected void playIn(int position) {
-        String piece;
         Board board = super.BOARD;
 
-        if (lastMove.equals(X_PIECE)) {
+        board.occupyCell(position, nextPlayerToMove.getPiece());
 
-            if (List.of(X_PIECE, O_PIECE).contains(board.getCells().get(position - 1))) {
-                return;
-            }
-
-            piece = O_PIECE;
-        } else {
-            piece = X_PIECE;
-        }
-
-        board.occupyCell(position, piece);
-        lastMove = piece;
+        nextPlayerToMove = PLAYERS.get(
+                PLAYERS.indexOf(nextPlayerToMove) == 0
+                        ? 1
+                        : 0
+        );
     }
 }
