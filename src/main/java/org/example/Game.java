@@ -11,6 +11,6 @@ public abstract class Game {
     protected abstract void playIn(int position);
 
     public String getBoard() {
-        return Printer.display(BOARD.course());
+        return Printer.display(BOARD.getCells());
     }
 }

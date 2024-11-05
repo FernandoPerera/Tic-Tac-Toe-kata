@@ -15,11 +15,12 @@ class TicTacToeTest {
     // insert position
 
     private TicTacToe ticTacToe;
-    private final List<String> CELLS = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+    private List<String> cells;
 
     @BeforeEach
     void setUp() {
-        Board board = new Board(CELLS);
+        cells = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+        Board board = new Board(cells);
         ticTacToe = new TicTacToe(board);
     }
 
@@ -31,7 +32,7 @@ class TicTacToeTest {
             ticTacToe.playIn(10);
 
             assertEquals(
-                    Printer.display(CELLS),
+                    Printer.display(cells),
                     ticTacToe.getBoard()
             );
         }
@@ -39,12 +40,13 @@ class TicTacToeTest {
         @Test
         void should_insert_position() {
             int positionToPlay = 2;
+            cells.set(positionToPlay - 1, "X");
 
             ticTacToe.playIn(positionToPlay);
             String currentBoard = ticTacToe.getBoard();
 
             assertEquals(
-                    Printer.display(Arrays.asList("1", "X", "3", "4", "5", "6", "7", "8", "9")),
+                    Printer.display(cells),
                     currentBoard);
         }
     }
@@ -57,7 +59,7 @@ class TicTacToeTest {
             String board = ticTacToe.getBoard();
 
             assertEquals(
-                    Printer.display(CELLS),
+                    Printer.display(cells),
                     board
             );
         }

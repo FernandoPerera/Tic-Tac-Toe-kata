@@ -18,7 +18,7 @@ public class Board {
         CELLS.set(position - 1, "X");
     }
 
-    public List<String> course() {
+    public List<String> getCells() {
         return CELLS;
     }
 }
