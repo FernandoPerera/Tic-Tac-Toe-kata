@@ -10,12 +10,12 @@ public class Board {
         this.CELLS = CELLS;
     }
 
-    public void occupyCell(int position) {
+    public void occupyCell(int position, String piece) {
         boolean isInBoardLimits = position <= 0 || position > CELLS.size();
         if (isInBoardLimits) {
             return;
         }
-        CELLS.set(position - 1, "X");
+        CELLS.set(position - 1, piece);
     }
 
     public List<String> getCells() {
