@@ -19,14 +19,16 @@ class TicTacToeTest {
     private TicTacToe ticTacToe;
     private List<String> cells;
 
-    private final String X_PIECE = "X";
-    private final String O_PIECE = "O";
+    private final List<Player> players = List.of(
+            new Player("Fernandito kitkat", Piece.X),
+            new Player("tatatito", Piece.O)
+    );
 
     @BeforeEach
     void setUp() {
         cells = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
         Board board = new Board(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
-        ticTacToe = new TicTacToe(board);
+        ticTacToe = new TicTacToe(board, players);
     }
 
     @Nested
@@ -49,7 +51,7 @@ class TicTacToeTest {
             ticTacToe.playIn(positionToPlay);
             String currentBoard = ticTacToe.getBoard();
 
-            cells.set(positionToPlay - 1, X_PIECE);
+            cells.set(positionToPlay - 1, Piece.X.name());
             assertEquals(
                     Printer.display(cells),
                     currentBoard);
@@ -59,8 +61,8 @@ class TicTacToeTest {
         void should_alternate_piece_each_turn() {
             int firstPositionMove = 2;
             int secondPositionMove = 5;
-            cells.set(firstPositionMove - 1, X_PIECE);
-            cells.set(secondPositionMove - 1, O_PIECE);
+            cells.set(firstPositionMove - 1, Piece.X.name());
+            cells.set(secondPositionMove - 1, Piece.O.name());
 
             ticTacToe.playIn(firstPositionMove);
             ticTacToe.playIn(secondPositionMove);
@@ -75,7 +77,7 @@ class TicTacToeTest {
         void should_not_play_in_cell_when_is_occupied() {
             int firstPositionMove = 2;
             int secondPositionMove = 2;
-            cells.set(firstPositionMove - 1, X_PIECE);
+            cells.set(firstPositionMove - 1, Piece.X.name());
 
             ticTacToe.playIn(firstPositionMove);
             ticTacToe.playIn(secondPositionMove);
