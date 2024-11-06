@@ -28,7 +28,7 @@ public class TicTacToe extends Game {
 
     @Override
     protected String getStatus() {
-        throw new RuntimeException("Not implemented yet");
+        return GameStates.PLAYING.name();
     }
 
 }
