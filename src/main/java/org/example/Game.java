@@ -10,6 +10,8 @@ public abstract class Game {
 
     protected abstract void playIn(int position);
 
+    protected abstract String getStatus();
+
     public String getBoard() {
         return Printer.display(BOARD.getCells());
     }

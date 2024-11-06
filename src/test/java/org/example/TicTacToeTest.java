@@ -11,11 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TicTacToeTest {
 
-    // position 1 to 9
-    // insert position
-    // do two piece inserts
-    // cannot play in occupy cell
-
     private TicTacToe ticTacToe;
     private List<String> cells;
 
@@ -34,6 +29,11 @@ class TicTacToeTest {
     @Nested
     class PlayInUseCases {
 
+        // position 1 to 9
+        // insert position
+        // do two piece inserts
+        // cannot play in occupy cell
+
         @Test
         void should_only_insert_in_limits_of_the_board() {
             ticTacToe.playIn(10);
@@ -46,12 +46,12 @@ class TicTacToeTest {
 
         @Test
         void should_insert_position() {
-            int positionToPlay = 2;
+            int firstPlayerMove = 2;
 
-            ticTacToe.playIn(positionToPlay);
+            ticTacToe.playIn(firstPlayerMove);
             String currentBoard = ticTacToe.getBoard();
 
-            cells.set(positionToPlay - 1, Piece.X.name());
+            cells.set(firstPlayerMove - 1, Piece.X.name());
             assertEquals(
                     Printer.display(cells),
                     currentBoard);
@@ -59,13 +59,13 @@ class TicTacToeTest {
 
         @Test
         void should_alternate_piece_each_turn() {
-            int firstPositionMove = 2;
-            int secondPositionMove = 5;
-            cells.set(firstPositionMove - 1, Piece.X.name());
-            cells.set(secondPositionMove - 1, Piece.O.name());
+            int firstPlayerMove = 2;
+            int secondPlayerMove = 5;
+            cells.set(firstPlayerMove - 1, Piece.X.name());
+            cells.set(secondPlayerMove - 1, Piece.O.name());
 
-            ticTacToe.playIn(firstPositionMove);
-            ticTacToe.playIn(secondPositionMove);
+            ticTacToe.playIn(firstPlayerMove);
+            ticTacToe.playIn(secondPlayerMove);
 
             assertEquals(
                     Printer.display(cells),
@@ -75,12 +75,12 @@ class TicTacToeTest {
 
         @Test
         void should_not_play_in_cell_when_is_occupied() {
-            int firstPositionMove = 2;
-            int secondPositionMove = 2;
-            cells.set(firstPositionMove - 1, Piece.X.name());
+            int firstPlayerMove = 2;
+            int secondPlayerMove = 2;
+            cells.set(firstPlayerMove - 1, Piece.X.name());
 
-            ticTacToe.playIn(firstPositionMove);
-            ticTacToe.playIn(secondPositionMove);
+            ticTacToe.playIn(firstPlayerMove);
+            ticTacToe.playIn(secondPlayerMove);
 
             assertEquals(
                     Printer.display(cells),
@@ -93,6 +93,8 @@ class TicTacToeTest {
     @Nested
     class GetBoardUseCases {
 
+        // obtain current board
+
         @Test
         void should_get_current_board_status() {
             String board = ticTacToe.getBoard();
@@ -102,5 +104,27 @@ class TicTacToeTest {
                     board
             );
         }
+    }
+
+    @Nested
+    class GetStatusUseCases {
+
+        // [ playing, draw, p1 wins, p2 wins ]
+        // when players play status should be playing
+
+        @Test
+        void should_be_playing_status_when_both_players_insert_a_piece() {
+            int firstPlayerMove = 2;
+            int secondPlayerMove = 5;
+
+            ticTacToe.playIn(firstPlayerMove);
+            ticTacToe.playIn(secondPlayerMove);
+
+            assertEquals(
+              GameStates.PLAYING.name(),
+              ticTacToe.getStatus()
+            );
+        }
+
     }
 }

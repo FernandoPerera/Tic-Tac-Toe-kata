@@ -5,7 +5,6 @@ import java.util.List;
 public class TicTacToe extends Game {
 
     private final List<Player> PLAYERS;
-
     private Player nextPlayerToMove;
 
     public TicTacToe(Board board, List<Player> PLAYERS) {
@@ -26,4 +25,10 @@ public class TicTacToe extends Game {
                         : 0
         );
     }
+
+    @Override
+    protected String getStatus() {
+        throw new RuntimeException("Not implemented yet");
+    }
+
 }
