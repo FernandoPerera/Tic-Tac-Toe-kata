@@ -56,6 +56,18 @@ public class TicTacToe extends Game {
                     if (winByRowPlay) {
                         return obtainWinnerBy(cellValue);
                     };
+
+                    if (i == 0) {
+                        String centerBoardValue = boardCells.get(i + 4);
+                        String rightCornerValue = boardCells.get(i + 8);
+                        if (cellValue.equals(centerBoardValue) && cellValue.equals(rightCornerValue)) return obtainWinnerBy(cellValue);
+                    }
+
+                    if (i + 2 == boardCells.size()) {
+                        String centerBoardValue = boardCells.get(i - 2);
+                        String rightCornerValue = boardCells.get(i - 4);
+                        if (cellValue.equals(centerBoardValue) && cellValue.equals(rightCornerValue)) return obtainWinnerBy(cellValue);
+                    }
                 }
 
             }
