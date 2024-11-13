@@ -41,8 +41,12 @@ public class TicTacToe extends Game {
                     String centerColValue = boardCells.get(i + 3);
                     String downColValue = boardCells.get(i + 6);
 
-                    if (cellValue.equals(centerColValue) && cellValue.equals(downColValue))
-                        return GameStates.P1_WINS.name();
+                    if (cellValue.equals(centerColValue) && cellValue.equals(downColValue)){
+                        return cellValue.equals(Piece.X.name())
+                            ? GameStates.P1_WINS.name()
+                            : GameStates.P2_WINS.name();
+                    }
+
                 }
             }
         }
