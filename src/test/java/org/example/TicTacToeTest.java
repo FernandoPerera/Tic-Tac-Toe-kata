@@ -3,6 +3,8 @@ package org.example;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.Arrays;
 import java.util.List;
@@ -114,11 +116,11 @@ class TicTacToeTest {
         // when player one occupy a column with her piece win the game
         // when player two occupy a column with her piece win the game
 
-        @Test
-        void should_be_playing_status_when_both_players_insert_a_piece() {
-            int firstPlayerMove = 2;
-            int secondPlayerMove = 5;
-
+        @ParameterizedTest
+        @CsvSource({ "2, 5" })
+        void should_be_playing_status_when_both_players_insert_a_piece(
+                int firstPlayerMove, int secondPlayerMove
+        ) {
             ticTacToe.playIn(firstPlayerMove);
             ticTacToe.playIn(secondPlayerMove);
 
@@ -128,14 +130,13 @@ class TicTacToeTest {
             );
         }
 
-        @Test
-        void should_win_player_if_its_pieces_occupy_a_column() {
-            int player1FirstMove = 2;
-            int player2FirstMove = 4;
-            int player1SecondMove = 5;
-            int player2SecondMove = 1;
-            int player1ThirdMove = 8;
-
+        @ParameterizedTest
+        @CsvSource({ "2, 4, 5, 1, 8" })
+        void should_win_player_if_its_pieces_occupy_a_column(
+                int player1FirstMove, int player2FirstMove,
+                int player1SecondMove, int player2SecondMove,
+                int player1ThirdMove
+        ) {
             ticTacToe.playIn(player1FirstMove);
             ticTacToe.playIn(player2FirstMove);
             ticTacToe.playIn(player1SecondMove);
@@ -148,14 +149,13 @@ class TicTacToeTest {
             );
         }
 
-        @Test
-        void should_win_player_if_its_pieces_occupy_a_row() {
-            int player1FirstMove = 1;
-            int player2FirstMove = 4;
-            int player1SecondMove = 2;
-            int player2SecondMove = 5;
-            int player1ThirdMove = 3;
-
+        @ParameterizedTest
+        @CsvSource({ "1, 4, 2, 5, 3" })
+        void should_win_player_if_its_pieces_occupy_a_row(
+                int player1FirstMove, int player2FirstMove,
+                int player1SecondMove, int player2SecondMove,
+                int player1ThirdMove
+        ) {
             ticTacToe.playIn(player1FirstMove);
             ticTacToe.playIn(player2FirstMove);
             ticTacToe.playIn(player1SecondMove);
