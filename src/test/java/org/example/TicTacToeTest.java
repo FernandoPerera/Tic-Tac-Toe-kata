@@ -168,5 +168,25 @@ class TicTacToeTest {
             );
         }
 
+        @ParameterizedTest
+        @CsvSource({ "3, 1, 4, 5, 8, 9" })
+        void should_win_player_if_its_pieces_occupy_a_diagonal(
+                int player1FirstMove, int player2FirstMove,
+                int player1SecondMove, int player2SecondMove,
+                int player1ThirdMove, int player2ThirdMove
+        ) {
+            ticTacToe.playIn(player1FirstMove);
+            ticTacToe.playIn(player2FirstMove);
+            ticTacToe.playIn(player1SecondMove);
+            ticTacToe.playIn(player2SecondMove);
+            ticTacToe.playIn(player1ThirdMove);
+            ticTacToe.playIn(player2ThirdMove);
+
+            assertEquals(
+                    GameStates.P2_WINS.name(),
+                    ticTacToe.getStatus()
+            );
+        }
+
     }
 }
