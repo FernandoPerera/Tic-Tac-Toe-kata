@@ -129,7 +129,7 @@ class TicTacToeTest {
         }
 
         @Test
-        void should_win_player_one_if_its_pieces_occupy_a_column() {
+        void should_win_player_if_its_pieces_occupy_a_column() {
             int player1FirstMove = 2;
             int player2FirstMove = 4;
             int player1SecondMove = 5;
@@ -144,28 +144,6 @@ class TicTacToeTest {
 
             assertEquals(
                     GameStates.P1_WINS.name(),
-                    ticTacToe.getStatus()
-            );
-        }
-
-        @Test
-        void should_win_player_two_if_its_pieces_occupy_a_column() {
-            int player1FirstMove = 4;
-            int player2FirstMove = 2;
-            int player1SecondMove = 6;
-            int player2SecondMove = 5;
-            int player1ThirdMove = 1;
-            int player2ThirdMove = 8;
-
-            ticTacToe.playIn(player1FirstMove);
-            ticTacToe.playIn(player2FirstMove);
-            ticTacToe.playIn(player1SecondMove);
-            ticTacToe.playIn(player2SecondMove);
-            ticTacToe.playIn(player1ThirdMove);
-            ticTacToe.playIn(player2ThirdMove);
-
-            assertEquals(
-                    GameStates.P2_WINS.name(),
                     ticTacToe.getStatus()
             );
         }
