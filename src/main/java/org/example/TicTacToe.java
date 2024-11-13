@@ -46,8 +46,20 @@ public class TicTacToe extends Game {
                             ? GameStates.P1_WINS.name()
                             : GameStates.P2_WINS.name();
                     }
-
                 }
+
+                boolean isInLeftSide = i % 3 == 0;
+                if (isInLeftSide) {
+                    String midRowValue = boardCells.get(i + 1);
+                    String rightRowValue = boardCells.get(i + 2);
+
+                    if (cellValue.equals(midRowValue) && cellValue.equals(rightRowValue)) {
+                        return cellValue.equals(Piece.X.name())
+                                ? GameStates.P1_WINS.name()
+                                : GameStates.P2_WINS.name();
+                    };
+                }
+
             }
         }
 
