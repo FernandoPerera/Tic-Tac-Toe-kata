@@ -148,5 +148,25 @@ class TicTacToeTest {
             );
         }
 
+        @Test
+        void should_win_player_if_its_pieces_occupy_a_row() {
+            int player1FirstMove = 1;
+            int player2FirstMove = 4;
+            int player1SecondMove = 2;
+            int player2SecondMove = 5;
+            int player1ThirdMove = 3;
+
+            ticTacToe.playIn(player1FirstMove);
+            ticTacToe.playIn(player2FirstMove);
+            ticTacToe.playIn(player1SecondMove);
+            ticTacToe.playIn(player2SecondMove);
+            ticTacToe.playIn(player1ThirdMove);
+
+            assertEquals(
+                    GameStates.P1_WINS.name(),
+                    ticTacToe.getStatus()
+            );
+        }
+
     }
 }
