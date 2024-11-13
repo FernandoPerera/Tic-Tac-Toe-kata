@@ -42,9 +42,7 @@ public class TicTacToe extends Game {
                     String downColValue = boardCells.get(i + 6);
 
                     if (cellValue.equals(centerColValue) && cellValue.equals(downColValue)){
-                        return cellValue.equals(Piece.X.name())
-                            ? GameStates.P1_WINS.name()
-                            : GameStates.P2_WINS.name();
+                        return obtainWinnerBy(cellValue);
                     }
                 }
 
@@ -54,9 +52,7 @@ public class TicTacToe extends Game {
                     String rightRowValue = boardCells.get(i + 2);
 
                     if (cellValue.equals(midRowValue) && cellValue.equals(rightRowValue)) {
-                        return cellValue.equals(Piece.X.name())
-                                ? GameStates.P1_WINS.name()
-                                : GameStates.P2_WINS.name();
+                        return obtainWinnerBy(cellValue);
                     };
                 }
 
@@ -64,6 +60,12 @@ public class TicTacToe extends Game {
         }
 
         return GameStates.PLAYING.name();
+    }
+
+    private static String obtainWinnerBy(String cellValue) {
+        return cellValue.equals(Piece.X.name())
+                ? GameStates.P1_WINS.name()
+                : GameStates.P2_WINS.name();
     }
 
     private boolean isGamePiece(String value) {
