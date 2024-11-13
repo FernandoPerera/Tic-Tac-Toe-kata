@@ -112,6 +112,7 @@ class TicTacToeTest {
         // [ playing, draw, p1 wins, p2 wins ]
         // when players play status should be playing
         // when player one occupy a column with her piece win the game
+        // when player two occupy a column with her piece win the game
 
         @Test
         void should_be_playing_status_when_both_players_insert_a_piece() {
@@ -143,6 +144,28 @@ class TicTacToeTest {
 
             assertEquals(
                     GameStates.P1_WINS.name(),
+                    ticTacToe.getStatus()
+            );
+        }
+
+        @Test
+        void should_win_player_two_if_its_pieces_occupy_a_column() {
+            int player1FirstMove = 4;
+            int player2FirstMove = 2;
+            int player1SecondMove = 6;
+            int player2SecondMove = 5;
+            int player1ThirdMove = 1;
+            int player2ThirdMove = 8;
+
+            ticTacToe.playIn(player1FirstMove);
+            ticTacToe.playIn(player2FirstMove);
+            ticTacToe.playIn(player1SecondMove);
+            ticTacToe.playIn(player2SecondMove);
+            ticTacToe.playIn(player1ThirdMove);
+            ticTacToe.playIn(player2ThirdMove);
+
+            assertEquals(
+                    GameStates.P2_WINS.name(),
                     ticTacToe.getStatus()
             );
         }
