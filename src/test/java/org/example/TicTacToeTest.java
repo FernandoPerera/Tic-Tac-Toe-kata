@@ -90,6 +90,29 @@ class TicTacToeTest {
             );
         }
 
+        @ParameterizedTest
+        @CsvSource({"2, 4, 5, 1, 8, 9"})
+        void should_not_play_if_game_is_over(
+                int player1FirstMove, int player2FirstMove,
+                int player1SecondMove, int player2SecondMove,
+                int player1ThirdMove, int player2ThirdMove
+        ) {
+            cells.set(player1FirstMove - 1, Piece.X.name());
+            cells.set(player2FirstMove - 1, Piece.O.name());
+            cells.set(player1SecondMove - 1, Piece.X.name());
+            cells.set(player2SecondMove - 1, Piece.O.name());
+            cells.set(player1ThirdMove - 1, Piece.X.name());
+
+            playMoves(player1FirstMove, player2FirstMove,
+                    player1SecondMove, player2SecondMove,
+                    player1ThirdMove, player2ThirdMove
+            );
+
+            assertEquals(
+                    Printer.display(cells),
+                    ticTacToe.getBoard()
+            );
+        }
     }
 
     @Nested
@@ -111,7 +134,7 @@ class TicTacToeTest {
     @Nested
     class GetStatusUseCases {
 
-        // [ playing, draw, p1 wins, p2 wins ]
+        // [ playing, stack, p1 wins, p2 wins ]
         // when players play status should be playing
         // when player one occupy a column with her piece win the game
         // when player two occupy a column with her piece win the game
@@ -206,8 +229,9 @@ class TicTacToeTest {
             );
         }
 
-        private void playMoves(int... moves) {
-            Arrays.stream(moves).forEach(ticTacToe::playIn);
-        }
+    }
+
+    private void playMoves(int... moves) {
+        Arrays.stream(moves).forEach(ticTacToe::playIn);
     }
 }
