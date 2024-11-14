@@ -7,33 +7,32 @@ import java.util.stream.Stream;
 
 public class TicTacToe extends Game {
 
-    private final List<Player> PLAYERS;
-    private Player nextPlayerToMove;
+    private final TurnManager TURN_MANAGER;
     private boolean isGameOver = false;
 
-    public TicTacToe(Board board, List<Player> PLAYERS) {
+    public TicTacToe(Board board, List<Player> players) {
         super(board);
-        this.PLAYERS = PLAYERS;
-        this.nextPlayerToMove = PLAYERS.get(0);
+        this.TURN_MANAGER = new TurnManager(players);
     }
 
     @Override
     protected void playIn(int position) {
         if (isGameOver) return;
 
-        Board board = super.BOARD;
+        makeMove(position);
+        checkGameStatus();
 
-        board.occupyCell(position, nextPlayerToMove.getPiece());
+        TURN_MANAGER.nextTurn();
+    }
 
-        nextPlayerToMove = PLAYERS.get(
-                PLAYERS.indexOf(nextPlayerToMove) == 0
-                        ? 1
-                        : 0
-        );
+    private void makeMove(int position) {
+        Player currentPlayer = TURN_MANAGER.getCurrentPlayer();
+        super.BOARD.occupyCell(position, currentPlayer.getPiece());
+    }
 
-        findWinner(board.getCells()).ifPresent(
-                (winner) -> isGameOver = true
-        );
+    private void checkGameStatus() {
+        findWinner(super.BOARD.getCells())
+                .ifPresent(winner -> isGameOver = true);
     }
 
     @Override
