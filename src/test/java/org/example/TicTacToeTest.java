@@ -115,33 +115,32 @@ class TicTacToeTest {
         // when players play status should be playing
         // when player one occupy a column with her piece win the game
         // when player two occupy a column with her piece win the game
+        // when none player win and all cells are occupy the game are stuck
 
         @ParameterizedTest
-        @CsvSource({ "2, 5" })
+        @CsvSource({"2, 5"})
         void should_be_playing_status_when_both_players_insert_a_piece(
-                int firstPlayerMove, int secondPlayerMove
+                int player1FirstMove, int player2FirstMove
         ) {
-            ticTacToe.playIn(firstPlayerMove);
-            ticTacToe.playIn(secondPlayerMove);
+            playMoves(player1FirstMove, player2FirstMove);
 
             assertEquals(
-              GameStates.PLAYING.name(),
-              ticTacToe.getStatus()
+                    GameStates.PLAYING.name(),
+                    ticTacToe.getStatus()
             );
         }
 
         @ParameterizedTest
-        @CsvSource({ "2, 4, 5, 1, 8" })
+        @CsvSource({"2, 4, 5, 1, 8"})
         void should_win_player_if_its_pieces_occupy_a_column(
                 int player1FirstMove, int player2FirstMove,
                 int player1SecondMove, int player2SecondMove,
                 int player1ThirdMove
         ) {
-            ticTacToe.playIn(player1FirstMove);
-            ticTacToe.playIn(player2FirstMove);
-            ticTacToe.playIn(player1SecondMove);
-            ticTacToe.playIn(player2SecondMove);
-            ticTacToe.playIn(player1ThirdMove);
+            playMoves(player1FirstMove, player2FirstMove,
+                    player1SecondMove, player2SecondMove,
+                    player1ThirdMove
+            );
 
             assertEquals(
                     GameStates.P1_WINS.name(),
@@ -150,17 +149,16 @@ class TicTacToeTest {
         }
 
         @ParameterizedTest
-        @CsvSource({ "1, 4, 2, 5, 3" })
+        @CsvSource({"1, 4, 2, 5, 3"})
         void should_win_player_if_its_pieces_occupy_a_row(
                 int player1FirstMove, int player2FirstMove,
                 int player1SecondMove, int player2SecondMove,
                 int player1ThirdMove
         ) {
-            ticTacToe.playIn(player1FirstMove);
-            ticTacToe.playIn(player2FirstMove);
-            ticTacToe.playIn(player1SecondMove);
-            ticTacToe.playIn(player2SecondMove);
-            ticTacToe.playIn(player1ThirdMove);
+            playMoves(player1FirstMove, player2FirstMove,
+                    player1SecondMove, player2SecondMove,
+                    player1ThirdMove
+            );
 
             assertEquals(
                     GameStates.P1_WINS.name(),
@@ -169,18 +167,16 @@ class TicTacToeTest {
         }
 
         @ParameterizedTest
-        @CsvSource({ "3, 1, 4, 5, 8, 9" })
+        @CsvSource({"3, 1, 4, 5, 8, 9"})
         void should_win_player_if_its_pieces_occupy_a_diagonal(
                 int player1FirstMove, int player2FirstMove,
                 int player1SecondMove, int player2SecondMove,
                 int player1ThirdMove, int player2ThirdMove
         ) {
-            ticTacToe.playIn(player1FirstMove);
-            ticTacToe.playIn(player2FirstMove);
-            ticTacToe.playIn(player1SecondMove);
-            ticTacToe.playIn(player2SecondMove);
-            ticTacToe.playIn(player1ThirdMove);
-            ticTacToe.playIn(player2ThirdMove);
+            playMoves(player1FirstMove, player2FirstMove,
+                    player1SecondMove, player2SecondMove,
+                    player1ThirdMove, player2ThirdMove
+            );
 
             assertEquals(
                     GameStates.P2_WINS.name(),
@@ -188,5 +184,30 @@ class TicTacToeTest {
             );
         }
 
+        @ParameterizedTest
+        @CsvSource({"1, 2, 3, 4, 5, 9, 8, 7, 6"})
+        void should_stuck_the_game_if_all_cells_are_occupy_and_no_winning_move(
+                int player1FirstMove, int player2FirstMove,
+                int player1SecondMove, int player2SecondMove,
+                int player1ThirdMove, int player2ThirdMove,
+                int player1FourthMove, int player2FourthMove,
+                int player1FifthMove
+        ) {
+            playMoves(player1FirstMove, player2FirstMove,
+                    player1SecondMove, player2SecondMove,
+                    player1ThirdMove, player2ThirdMove,
+                    player1FourthMove, player2FourthMove,
+                    player1FifthMove
+            );
+
+            assertEquals(
+                    GameStates.STUCK.name(),
+                    ticTacToe.getStatus()
+            );
+        }
+
+        private void playMoves(int... moves) {
+            Arrays.stream(moves).forEach(ticTacToe::playIn);
+        }
     }
 }
