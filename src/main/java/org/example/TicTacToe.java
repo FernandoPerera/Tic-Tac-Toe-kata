@@ -9,6 +9,7 @@ public class TicTacToe extends Game {
 
     private final List<Player> PLAYERS;
     private Player nextPlayerToMove;
+    private boolean isGameOver = false;
 
     public TicTacToe(Board board, List<Player> PLAYERS) {
         super(board);
@@ -18,6 +19,8 @@ public class TicTacToe extends Game {
 
     @Override
     protected void playIn(int position) {
+        if (isGameOver) return;
+
         Board board = super.BOARD;
 
         board.occupyCell(position, nextPlayerToMove.getPiece());
@@ -26,6 +29,10 @@ public class TicTacToe extends Game {
                 PLAYERS.indexOf(nextPlayerToMove) == 0
                         ? 1
                         : 0
+        );
+
+        findWinner(board.getCells()).ifPresent(
+                (winner) -> isGameOver = true
         );
     }
 
