@@ -2,6 +2,8 @@ package org.example;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class TicTacToe extends Game {
 
@@ -31,49 +33,64 @@ public class TicTacToe extends Game {
     protected String getStatus() {
         List<String> boardCells = super.BOARD.getCells();
 
-        for (int i = 0; i < boardCells.size(); i++) {
+        return findWinner(boardCells).orElse(
+                GameStates.PLAYING.name()
+        );
+    }
 
-            String cellValue = boardCells.get(i);
+    private Optional<String> findWinner(List<String> boardCells) {
+        return Stream.of(
+                        obtainWinnerByDiagonalPlay(boardCells),
+                        obtainWinnerByRowPlay(boardCells),
+                        obtainWinnerByVerticalPlay(boardCells)
+                )
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .findFirst();
+    }
+
+    private Optional<String> obtainWinnerByVerticalPlay(List<String> boardCells) {
+        for (int boardIndex = 0; boardIndex < 3; boardIndex++) {
+            String cellValue = boardCells.get(boardIndex);
+
             if (isGamePiece(cellValue)) {
+                String centerColValue = boardCells.get(boardIndex + 3);
+                String downColValue = boardCells.get(boardIndex + 6);
 
-                boolean isFirstRow = i < 3;
-                if (isFirstRow) {
-                    String centerColValue = boardCells.get(i + 3);
-                    String downColValue = boardCells.get(i + 6);
-
-                    boolean winByColumnPlay = cellValue.equals(centerColValue) && cellValue.equals(downColValue);
-                    if (winByColumnPlay){
-                        return obtainWinnerBy(cellValue);
-                    }
-                }
-
-                boolean isInLeftSide = i % 3 == 0;
-                if (isInLeftSide) {
-                    String midRowValue = boardCells.get(i + 1);
-                    String rightRowValue = boardCells.get(i + 2);
-
-                    boolean winByRowPlay = cellValue.equals(midRowValue) && cellValue.equals(rightRowValue);
-                    if (winByRowPlay) {
-                        return obtainWinnerBy(cellValue);
-                    };
-
-                    if (i == 0) {
-                        String centerBoardValue = boardCells.get(i + 4);
-                        String rightCornerValue = boardCells.get(i + 8);
-                        if (cellValue.equals(centerBoardValue) && cellValue.equals(rightCornerValue)) return obtainWinnerBy(cellValue);
-                    }
-
-                    if (i + 2 == boardCells.size()) {
-                        String centerBoardValue = boardCells.get(i - 2);
-                        String rightCornerValue = boardCells.get(i - 4);
-                        if (cellValue.equals(centerBoardValue) && cellValue.equals(rightCornerValue)) return obtainWinnerBy(cellValue);
-                    }
-                }
-
+                boolean isWinByVerticalPlay = cellValue.equals(centerColValue) && cellValue.equals(downColValue);
+                if (isWinByVerticalPlay) return Optional.of(obtainWinnerBy(cellValue));
             }
         }
+        return Optional.empty();
+    }
 
-        return GameStates.PLAYING.name();
+    private Optional<String> obtainWinnerByRowPlay(List<String> boardCells) {
+        for (int boardIndex = 0; boardIndex <= (boardCells.size() - 2); boardIndex = boardIndex + 3) {
+            String cellValue = boardCells.get(boardIndex);
+
+            if (isGamePiece(cellValue)) {
+                String midRowValue = boardCells.get(boardIndex + 1);
+                String rightRowValue = boardCells.get(boardIndex + 2);
+
+                boolean isWinByRowPlay = cellValue.equals(midRowValue) && cellValue.equals(rightRowValue);
+                if (isWinByRowPlay) return Optional.of(obtainWinnerBy(cellValue));
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Optional<String> obtainWinnerByDiagonalPlay(List<String> boardCells) {
+        String centerValue = boardCells.get(boardCells.size() / 2);
+        if (isGamePiece(centerValue)) {
+
+            boolean isWinByTopLeftDownRightDiagonal = centerValue.equals(boardCells.get(0)) && centerValue.equals(boardCells.get(boardCells.size() - 1));
+            boolean isWinByTopRightDownLeftDiagonal = centerValue.equals(boardCells.get(2)) && centerValue.equals(boardCells.get(6));
+
+            if (isWinByTopRightDownLeftDiagonal || isWinByTopLeftDownRightDiagonal) {
+                return Optional.of(obtainWinnerBy(centerValue));
+            }
+        }
+        return Optional.empty();
     }
 
     private static String obtainWinnerBy(String cellValue) {
