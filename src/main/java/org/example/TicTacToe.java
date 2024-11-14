@@ -33,8 +33,13 @@ public class TicTacToe extends Game {
     protected String getStatus() {
         List<String> boardCells = super.BOARD.getCells();
 
-        return findWinner(boardCells).orElse(
-                GameStates.PLAYING.name()
+        return findWinner(boardCells).orElseGet(
+                () -> {
+                    boolean allCellsAreOccupied = boardCells.stream().allMatch(this::isGamePiece);
+                    return allCellsAreOccupied
+                            ? GameStates.STUCK.name()
+                            : GameStates.PLAYING.name();
+                }
         );
     }
 
