@@ -6,7 +6,6 @@ public class TicTacToe extends Game {
 
     private final TurnManager TURN_MANAGER;
     private final TicTacToeWinChecker WIN_CHECKER;
-    private boolean isGameOver = false;
 
     public TicTacToe(Board board, List<Player> players) {
         super(board);
@@ -16,7 +15,7 @@ public class TicTacToe extends Game {
 
     @Override
     protected void playIn(int position) {
-        if (isGameOver) return;
+        if (isGameOver()) return;
 
         makeMove(position);
         checkGameStatus();
@@ -38,7 +37,7 @@ public class TicTacToe extends Game {
 
     private void checkGameStatus() {
         WIN_CHECKER.findWinner(BOARD.getCells()).ifPresent(
-                winner -> isGameOver = true
+                winner -> isOver()
         );
     }
 
