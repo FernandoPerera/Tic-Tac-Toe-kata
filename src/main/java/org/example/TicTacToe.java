@@ -4,13 +4,10 @@ import java.util.List;
 
 public class TicTacToe extends Game {
 
-    private final TurnManager TURN_MANAGER;
-    private final TicTacToeWinChecker WIN_CHECKER;
+    private final TicTacToeWinChecker WIN_CHECKER = new TicTacToeWinChecker();;
 
     public TicTacToe(Board board, List<Player> players) {
-        super(board);
-        this.WIN_CHECKER = new TicTacToeWinChecker();
-        this.TURN_MANAGER = new TurnManager(players);
+        super(board, players);
     }
 
     @Override
