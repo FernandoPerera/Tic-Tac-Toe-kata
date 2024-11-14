@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TicTacToe extends Game {
 
-    private final TicTacToeWinChecker WIN_CHECKER = new TicTacToeWinChecker();;
+    private final TicTacToeWinChecker WIN_CHECKER = new TicTacToeWinChecker();
 
     public TicTacToe(Board board, List<Player> players) {
         super(board, players);
