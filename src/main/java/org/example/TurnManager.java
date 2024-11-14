@@ -15,6 +15,8 @@ public class TurnManager {
     }
 
     public void nextTurn() {
-        currentPlayerIndex = (currentPlayerIndex + 1) % PLAYERS.size();
+        currentPlayerIndex = currentPlayerIndex == PLAYERS.size() - 1
+                ? 0
+                : currentPlayerIndex + 1;
     }
 }
